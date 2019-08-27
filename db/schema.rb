@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_012850) do
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.float "price", null: false
+    t.string "status", default: "active", null: false
     t.bigint "category_id"
     t.integer "presentation"
     t.datetime "created_at", null: false
