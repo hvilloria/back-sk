@@ -10,7 +10,7 @@ RSpec.describe Product, type: :model do
     let(:category) { create(:category) }
     subject do
       described_class.new(
-        name: 'random name',
+        name: 'Hot Rolls',
         price: 12,
         status: :active,
         category_id: category.id
