@@ -3,5 +3,5 @@ class Product < ApplicationRecord
 
   validates :name, :price, :status, presence: true
 
-  enum status: { active: 'active', inactive: 'active' }
+  enum status: { active: 'active', inactive: 'inactive' }
 end
