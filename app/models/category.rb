@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   has_many :products
+  has_many :shippings
 
   validates :name, :status, presence: true
 

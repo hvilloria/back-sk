@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  has_many :shippings
 
   validates :name, :price, :status, presence: true
 
