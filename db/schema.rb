@@ -34,13 +34,9 @@ ActiveRecord::Schema.define(version: 2019_08_28_011305) do
   end
 
   create_table "shippings", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "product_id"
     t.integer "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_shippings_on_category_id"
-    t.index ["product_id"], name: "index_shippings_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +50,4 @@ ActiveRecord::Schema.define(version: 2019_08_28_011305) do
   end
 
   add_foreign_key "products", "categories"
-  add_foreign_key "shippings", "categories"
-  add_foreign_key "shippings", "products"
 end
