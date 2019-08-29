@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  has_one :discount
 
   validates :name, :price, :status, presence: true
 

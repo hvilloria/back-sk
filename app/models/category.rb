@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   has_many :products
+  has_one :discount
 
   validates :name, :status, presence: true
 
