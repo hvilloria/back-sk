@@ -21,4 +21,24 @@ RSpec.describe Product, type: :model do
       expect(subject).to be_valid
     end
   end
+
+  context 'when using scopes' do
+    let(:category) { create(:category) }
+    before do
+      create(:product, status: 'inactive', category: category)
+      create_list(:product, 4, category: category)
+    end
+
+    context 'when using active_ones scope' do
+      it 'shows only the active products' do
+        expect(described_class.active_ones.size).to eq(4)
+      end
+    end
+
+    context 'when using inactive_ones scope' do
+      it 'shows only the inactive products' do
+        expect(described_class.inactive_ones.size).to eq(1)
+      end
+    end
+  end
 end
