@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_011305) do
+ActiveRecord::Schema.define(version: 2019_08_29_233502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2019_08_28_011305) do
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.integer "amount", null: false
+    t.bigint "category_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_discounts_on_category_id"
+    t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -49,5 +59,7 @@ ActiveRecord::Schema.define(version: 2019_08_28_011305) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "discounts", "categories"
+  add_foreign_key "discounts", "products"
   add_foreign_key "products", "categories"
 end
