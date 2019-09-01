@@ -21,7 +21,7 @@ RSpec.describe Api::ProductsController, type: :controller do
       end
     end
 
-    context 'whit wrong params' do
+    context 'with wrong params' do
       let(:request_params) { { name: '' } }
 
       it 'does not update the product' do
