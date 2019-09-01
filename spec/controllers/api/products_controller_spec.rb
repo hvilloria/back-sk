@@ -9,7 +9,7 @@ RSpec.describe Api::ProductsController, type: :controller do
       product.reload
     end
 
-    context 'whit correct params' do
+    context 'with correct params' do
       let(:request_params) { { name: 'new name', price: 2500 } }
 
       it 'updates the product' do

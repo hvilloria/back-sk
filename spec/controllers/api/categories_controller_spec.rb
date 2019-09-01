@@ -32,7 +32,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
       post :create, params: { category: request_params }
     end
 
-    context 'whit correct params' do
+    context 'with correct params' do
       let(:request_params) { attributes_for(:category) }
 
       it 'creates the category' do
@@ -64,7 +64,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
       category.reload
     end
 
-    context 'whit correct params' do
+    context 'with correct params' do
       let(:request_params) { { name: 'new name', status: 'inactive' } }
 
       it 'updates the category' do
