@@ -37,7 +37,7 @@ RSpec.describe Api::ProductsController, type: :controller do
         patch :update, params: { id: 5, product: request_params }
         product.reload
       end
-      let(:request_params) { { name: 'new name'} }
+      let(:request_params) { { name: 'new name' } }
 
       it 'responds with not found' do
         expect(response).to have_http_status(:not_found)
