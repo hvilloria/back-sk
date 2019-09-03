@@ -1,34 +1,36 @@
 class TrackingIdGenerator
   attr_reader :base_date
-  # TODO: TODA ESTA LOGICA DEBE SER REFACTORIZADA
-  def initialize
-    @base_date = set_first_day_of_the_month
-  end
+  MAX_TRACKING_ID_LENGTH = 4
+  INITIAL_VALUE = '0001'.freeze
 
   def start
-    return '0001' unless last_tracking_id.present?
+    return INITIAL_VALUE unless last_tracking_id.present? && valid_moment_to_start?
 
-    if start_of_month? then
-      if Time.at(last_tracking_id.created_at).today? then
-        return (last_tracking_id + 1).to_s
-      else
-        return '0001'
-      end
-    else
-      return (last_tracking_id + 1).to_s
-    end
+    formatted_value
+  end
+
+  def valid_moment_to_start?
+    Time.at(last_order.created_at).today? || !start_of_month?
+  end
+
+  def formatted_value
+    tracking_id = (last_tracking_id + 1).to_s
+    tracking_id.tap { tracking_id.prepend('0') while tracking_id.length < MAX_TRACKING_ID_LENGTH }
   end
 
   def last_tracking_id
-    @last_tracking_id ||= Order.last&.tracking_id&.to_i
+    @last_tracking_id ||= last_order&.tracking_id&.to_i
   end
 
-  def set_first_day_of_the_month
-    t = Time.zone.now
-    t.change(day: 1)
+  def last_order
+    @last_order ||= Order.last
+  end
+
+  def first_day_of_the_month
+    @first_day_of_the_month ||= Time.zone.now.change(day: 1)
   end
 
   def start_of_month?
-    base_date.day == 1
+    first_day_of_the_month == Time.zone.now
   end
 end
