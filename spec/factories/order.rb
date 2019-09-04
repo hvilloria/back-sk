@@ -1,9 +1,13 @@
 FactoryBot.define do
   factory :order do
-    service_type { Order.service_types.keys.sample }
+    service_type { :dl }
     notes { 'Sin jengibre ni soja' }
     total { 1312 }
-    tracking_id { TrackingIdGenerator.new.start }
+
+    trait :pedidos_ya_service do
+      tracking_id { '3321' }
+      service_type { :py }
+    end
 
     before(:create) do |order|
       create(:category)

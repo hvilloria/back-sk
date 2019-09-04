@@ -10,7 +10,7 @@ class TrackingIdGenerator
   end
 
   def valid_moment_to_start?
-    Time.at(last_order.created_at).today? || !start_of_month?
+    last_order.created_at.today? || !start_of_month?
   end
 
   def formatted_value
