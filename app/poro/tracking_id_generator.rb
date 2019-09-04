@@ -1,5 +1,4 @@
 class TrackingIdGenerator
-  attr_reader :base_date
   MAX_TRACKING_ID_LENGTH = 4
   INITIAL_VALUE = '0001'.freeze
 

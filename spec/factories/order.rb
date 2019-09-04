@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :order do
     service_type { :dl }
     notes { 'Sin jengibre ni soja' }
-    total { 1312 }
+    total { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
 
     trait :pedidos_ya_service do
       tracking_id { '3321' }
