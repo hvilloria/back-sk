@@ -32,6 +32,25 @@ ActiveRecord::Schema.define(version: 2019_08_29_233502) do
     t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "tracking_id"
+    t.bigint "client_id"
+    t.string "service_type"
+    t.integer "shipping_cost", default: 0
+    t.float "total"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
+  end
+
+  create_table "orders_products", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.index ["order_id", "product_id"], name: "index_orders_products_on_order_id_and_product_id"
+    t.index ["product_id", "order_id"], name: "index_orders_products_on_product_id_and_order_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.float "price", null: false
@@ -61,5 +80,6 @@ ActiveRecord::Schema.define(version: 2019_08_29_233502) do
 
   add_foreign_key "discounts", "categories"
   add_foreign_key "discounts", "products"
+  add_foreign_key "orders", "users", column: "client_id"
   add_foreign_key "products", "categories"
 end
