@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :categories, only: %i[index create update]
     resources :products, only: [:update]
-    resources :orders, only: [:index]
+    resources :orders, only: %i[index create]
   end
 end
