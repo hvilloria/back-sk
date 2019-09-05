@@ -47,4 +47,29 @@ RSpec.describe Api::OrdersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #index' do
+    context 'when there are not orders created' do
+      before { get :index }
+      it 'returns an empty array' do
+        body = JSON.parse(response.body)
+        expect(body).to eq([])
+      end
+      it 'responds with status ok' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when there are orders created' do
+      let!(:order) { create_list(:order, 5) }
+      before { get :index }
+      it 'returns a non empty array' do
+        body = JSON.parse(response.body)
+        expect(body).not_to be_empty
+      end
+      it 'responds with status ok' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end
