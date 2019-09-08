@@ -7,7 +7,7 @@ RSpec.describe Api::ProductSerializer, type: :serializer do
   let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
   subject { JSON.parse(serialization.to_json) }
 
-  PRODUCT_SERIALIZER_FIELDS = %w[name presentation status].freeze
+  PRODUCT_SERIALIZER_FIELDS = %w[name status].freeze
 
   PRODUCT_SERIALIZER_FIELDS.each do |field|
     it "serializes the #{field.humanize(capitalize: false)} field" do
