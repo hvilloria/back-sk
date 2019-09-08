@@ -10,11 +10,10 @@ RSpec.describe Api::ProductsController, type: :controller do
     end
 
     context 'with correct params' do
-      let(:request_params) { { name: 'new name', price: 2500 } }
+      let(:request_params) { { name: 'new name' } }
 
       it 'updates the product' do
         expect(product.name).to eql(request_params[:name])
-        expect(product.price).to eql(request_params[:price].to_f)
       end
       it 'responds with status ok' do
         expect(response).to have_http_status(:ok)

@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :product do
-    name   { Faker::Food.sushi }
-    price  { Faker::Number.within(range: 200..1000) }
+    name  { Faker::Food.sushi }
     presentation { 15 }
   end
 end
