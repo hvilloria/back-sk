@@ -2,12 +2,13 @@ class Order < ApplicationRecord
   belongs_to :client, class_name: 'User'
   has_and_belongs_to_many :products
 
-  enum service_type: { dl: 'local delivery', tk: 'take away', py: 'pedidos ya' }
-
   validates :client, :products, :service_type, :total, presence: true
 
-  before_create :set_tracking_id, unless: :py?
+  enum service_type: { dl: 'local delivery', tk: 'take away', py: 'pedidos ya' }
 
+  scope :today_ones, -> { select { |order| order.created_at.today? } }
+
+  before_create :set_tracking_id, unless: :py?
   before_create :set_shipping_cost, if: :dl?
 
   def set_tracking_id

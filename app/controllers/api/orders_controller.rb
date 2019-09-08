@@ -1,5 +1,10 @@
 module Api
   class OrdersController < ApplicationController
+    def index
+      @orders = Order.today_ones
+      render json: @orders, status: :ok
+    end
+
     def create
       order = Order.create(order_params)
       return bad_request(order.errors) unless order.errors.blank?
