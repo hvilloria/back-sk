@@ -1,7 +1,8 @@
 class OrderSerializer < ActiveModel::Serializer
   attributes :tracking_id, :service_type,
-             :shipping_cost, :total, :notes, :products
+             :shipping_cost, :total, :notes, :created_at
   belongs_to :client
+  has_many :products
 
   def client
     object.client.name

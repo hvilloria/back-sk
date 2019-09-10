@@ -18,6 +18,26 @@ RSpec.describe Api::ProductsController, type: :controller do
       it 'responds with status ok' do
         expect(response).to have_http_status(:ok)
       end
+
+      context 'and updating variants' do
+        let!(:variant) { create(:variant, base: false, product: product) }
+        let(:request_params) do
+          {
+            name: 'new name',
+            variants_attributes: [
+              {
+                id: variant.id,
+                name: 'updated name'
+              }
+            ]
+          }
+        end
+
+        it 'updates the variant' do
+          expect(product.variants.first.name)
+            .to eq(request_params[:variants_attributes].first[:name])
+        end
+      end
     end
 
     context 'with wrong params' do
