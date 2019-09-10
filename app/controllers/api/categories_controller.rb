@@ -2,7 +2,7 @@ module Api
   class CategoriesController < ApplicationController
     def index
       @categories = Category.active_ones
-      render json: @categories, status: :ok
+      render json: @categories, include: ['products.variants'], status: :ok
     end
 
     def create

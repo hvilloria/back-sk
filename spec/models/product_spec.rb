@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_presence_of(:price) }
   it { is_expected.to validate_presence_of(:status) }
   it { is_expected.to belong_to(:category) }
   it { is_expected.to have_one(:discount) }
@@ -13,7 +12,6 @@ RSpec.describe Product, type: :model do
     subject do
       described_class.new(
         name: 'Hot Rolls',
-        price: 12,
         status: :active,
         category_id: category.id
       )
