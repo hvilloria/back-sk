@@ -8,7 +8,7 @@ RSpec.describe Api::VariantSerializer, type: :serializer do
   let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
   subject { JSON.parse(serialization.to_json) }
 
-  VARIANT_SERIALIZER_FIELDS = %w[name price base].freeze
+  VARIANT_SERIALIZER_FIELDS = %w[name price base status].freeze
 
   VARIANT_SERIALIZER_FIELDS.each do |field|
     it "serializes the #{field.humanize(capitalize: false)} field" do
