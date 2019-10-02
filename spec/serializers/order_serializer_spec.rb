@@ -7,7 +7,7 @@ RSpec.describe Api::OrderSerializer, type: :serializer do
   subject { JSON.parse(serialization.to_json) }
 
   ORDER_SERIALIZER_FIELDS = %w[tracking_id service_type shipping_cost total
-                               notes created_at].freeze
+                               notes created_at payment_type].freeze
 
   ORDER_SERIALIZER_FIELDS.each do |field|
     it "serializes the #{field.humanize(capitalize: false)} field" do
