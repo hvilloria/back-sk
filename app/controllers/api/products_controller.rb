@@ -12,7 +12,8 @@ module Api
 
     def product_permitted_params
       params.require(:product)
-            .permit(:name, :price, :status, variants_attributes: %i[id base name price])
+            .permit(:name, :price, :status,
+                    variants_attributes: %i[id base name price status])
     end
   end
 end

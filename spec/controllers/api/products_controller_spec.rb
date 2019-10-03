@@ -20,7 +20,7 @@ RSpec.describe Api::ProductsController, type: :controller do
       end
 
       context 'and updating variants' do
-        let!(:variant) { create(:variant, base: false, product: product) }
+        let!(:variant) { create(:variant, product: product) }
         let(:request_params) do
           {
             name: 'new name',

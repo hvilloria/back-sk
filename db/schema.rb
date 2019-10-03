@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_10_02_000709) do
     t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "active", null: false
     t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
