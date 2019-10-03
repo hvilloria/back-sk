@@ -8,6 +8,7 @@ RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:products) }
   it { is_expected.to validate_presence_of(:service_type) }
   it { is_expected.to validate_presence_of(:total) }
+  it { is_expected.to validate_presence_of(:payment_type) }
 
   context 'when the service is pedidos ya' do
     it 'does not generate a tracking id' do

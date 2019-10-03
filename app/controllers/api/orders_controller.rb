@@ -22,6 +22,7 @@ module Api
                     :shipping_cost,
                     :total,
                     :notes,
+                    :payment_type,
                     product_ids: [])
     end
   end
