@@ -13,11 +13,10 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'client_id': nil,
             'product_ids': [Product.first, Product.second],
             'tracking_id': '1322',
             'service_type': 'pedidos ya',
-            'total': 3123.23,
+            'total': nil,
             'notes': 'sin notas',
             'payment_type': 'cash'
           }
@@ -32,7 +31,6 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'client_id': User.first,
             'product_ids': [Product.first, Product.second],
             'tracking_id': '1322',
             'service_type': 'pedidos ya',

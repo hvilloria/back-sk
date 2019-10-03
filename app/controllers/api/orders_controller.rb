@@ -17,7 +17,6 @@ module Api
     def order_params
       params.require(:order)
             .permit(:tracking_id,
-                    :client_id,
                     :service_type,
                     :shipping_cost,
                     :total,

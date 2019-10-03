@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_02_000709) do
+ActiveRecord::Schema.define(version: 2019_10_03_005141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_000709) do
 
   create_table "orders", force: :cascade do |t|
     t.string "tracking_id"
-    t.bigint "client_id"
     t.string "service_type"
     t.integer "shipping_cost", default: 0
     t.float "total"
@@ -42,7 +41,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_000709) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_type", default: "cash", null: false
-    t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
   create_table "orders_products", id: false, force: :cascade do |t|
@@ -90,7 +88,6 @@ ActiveRecord::Schema.define(version: 2019_10_02_000709) do
 
   add_foreign_key "discounts", "categories"
   add_foreign_key "discounts", "products"
-  add_foreign_key "orders", "users", column: "client_id"
   add_foreign_key "products", "categories"
   add_foreign_key "variants", "products"
 end
