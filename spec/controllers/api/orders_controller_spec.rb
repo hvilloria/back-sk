@@ -18,8 +18,8 @@ RSpec.describe Api::OrdersController, type: :controller do
             'tracking_id': '1322',
             'service_type': 'pedidos ya',
             'total': 3123.23,
-            'notes': 'sin notas'
-
+            'notes': 'sin notas',
+            'payment_type': 'cash'
           }
         }
       end
@@ -37,8 +37,8 @@ RSpec.describe Api::OrdersController, type: :controller do
             'tracking_id': '1322',
             'service_type': 'pedidos ya',
             'total': 3123.23,
-            'notes': 'sin notas'
-
+            'notes': 'sin notas',
+            'payment_type': 'cash'
           }
         }
       end

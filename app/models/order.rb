@@ -2,9 +2,13 @@ class Order < ApplicationRecord
   belongs_to :client, class_name: 'User'
   has_and_belongs_to_many :products
 
-  validates :client, :products, :service_type, :total, presence: true
+  validates :client, :products, :service_type, :total, :payment_type,
+            presence: true
 
   enum service_type: { dl: 'local delivery', tk: 'take away', py: 'pedidos ya' }
+  enum payment_type: { cash: 'cash', occ: 'online credit card',
+                       odc: 'online debit card', lcc: 'local credit card',
+                       ldc: 'local debit card' }
 
   scope :today_ones, -> { select { |order| order.created_at.today? } }
 
