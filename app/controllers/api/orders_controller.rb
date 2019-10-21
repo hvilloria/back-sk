@@ -22,6 +22,8 @@ module Api
                     :total,
                     :notes,
                     :payment_type,
+                    :client_name,
+                    :client_phone_number,
                     product_ids: [])
     end
   end

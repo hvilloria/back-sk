@@ -36,7 +36,9 @@ RSpec.describe Api::OrdersController, type: :controller do
             'service_type': 'pedidos ya',
             'total': 3123.23,
             'notes': 'sin notas',
-            'payment_type': 'cash'
+            'payment_type': 'cash',
+            'client_name': 'Pedro',
+            'client_phone_number': 'Perez'
           }
         }
       end
