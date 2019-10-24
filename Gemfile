@@ -8,6 +8,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'active_model_serializers', '~> 0.10.10'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'devise_token_auth'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
