@@ -1,3 +1,3 @@
 class VariantSerializer < ActiveModel::Serializer
-  attributes :name, :price, :base, :status
+  attributes :id, :name, :price, :base, :status
 end

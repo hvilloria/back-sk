@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :name, :status
+  attributes :id, :name, :status
 
   has_many :variants
 end
