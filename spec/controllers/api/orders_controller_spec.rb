@@ -5,7 +5,8 @@ RSpec.describe Api::OrdersController, type: :controller do
     before do
       create(:user)
       create(:category)
-      create_list(:product, 2, category: Category.last)
+      create(:product, category: Category.last)
+      create(:variant, product: Product.last)
       post :create, params: params
     end
 
@@ -13,7 +14,7 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'product_ids': [Product.first, Product.second],
+            'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
             'service_type': 'pedidos ya',
             'total': nil,
@@ -31,7 +32,7 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'product_ids': [Product.first, Product.second],
+            'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
             'service_type': 'pedidos ya',
             'total': 3123.23,
