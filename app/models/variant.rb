@@ -1,5 +1,6 @@
 class Variant < ApplicationRecord
   belongs_to :product
+  has_and_belongs_to_many :orders
 
   validates :price, :product, :status, presence: true
   validates :base, inclusion: { in: [true, false] }

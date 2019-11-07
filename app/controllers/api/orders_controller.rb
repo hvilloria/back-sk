@@ -24,7 +24,7 @@ module Api
                     :payment_type,
                     :client_name,
                     :client_phone_number,
-                    product_ids: [])
+                    variant_ids: [])
     end
   end
 end
