@@ -13,7 +13,8 @@ FactoryBot.define do
 
     before(:create) do |order|
       create(:category)
-      order.products << FactoryBot.create(:product, category: Category.last)
+      product = FactoryBot.create(:product, category: Category.last)
+      order.variants << FactoryBot.create(:variant, product: product)
       order.shipping_cost = create(:shipping)
     end
   end

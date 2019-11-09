@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_24_020107) do
+ActiveRecord::Schema.define(version: 2019_11_07_042608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,11 +45,11 @@ ActiveRecord::Schema.define(version: 2019_10_24_020107) do
     t.string "client_phone_number"
   end
 
-  create_table "orders_products", id: false, force: :cascade do |t|
+  create_table "orders_variants", id: false, force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.index ["order_id", "product_id"], name: "index_orders_products_on_order_id_and_product_id"
-    t.index ["product_id", "order_id"], name: "index_orders_products_on_product_id_and_order_id"
+    t.bigint "variant_id", null: false
+    t.index ["order_id", "variant_id"], name: "index_orders_variants_on_order_id_and_variant_id"
+    t.index ["variant_id", "order_id"], name: "index_orders_variants_on_variant_id_and_order_id"
   end
 
   create_table "products", force: :cascade do |t|

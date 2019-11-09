@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
-  has_and_belongs_to_many :products
+  has_and_belongs_to_many :variants
 
-  validates :products, :service_type, :total, :payment_type, :client_name,
+  validates :variants, :service_type, :total, :payment_type, :client_name,
             :client_phone_number, presence: true
 
   enum service_type: { dl: 'local delivery', tk: 'take away', py: 'pedidos ya' }
@@ -9,7 +9,10 @@ class Order < ApplicationRecord
                        odc: 'online debit card', lcc: 'local credit card',
                        ldc: 'local debit card' }
 
-  scope :today_ones, -> { select { |order| order.created_at.today? } }
+  def self.today_ones
+    orders = order(created_at: :desc)
+    orders.select { |order| order.created_at.today? }
+  end
 
   before_create :set_tracking_id, unless: :py?
   before_create :set_shipping_cost, if: :dl?

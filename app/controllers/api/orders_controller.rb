@@ -2,7 +2,7 @@ module Api
   class OrdersController < ApplicationController
     def index
       @orders = Order.today_ones
-      render json: @orders, include: ['products.variants'], status: :ok
+      render json: @orders, status: :ok
     end
 
     def create
@@ -24,7 +24,7 @@ module Api
                     :payment_type,
                     :client_name,
                     :client_phone_number,
-                    product_ids: [])
+                    variant_ids: [])
     end
   end
 end
