@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 2019_11_08_174117) do
     t.string "state"
   end
 
-  create_table "orders_products", id: false, force: :cascade do |t|
+  create_table "orders_variants", id: false, force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.index ["order_id", "product_id"], name: "index_orders_products_on_order_id_and_product_id"
-    t.index ["product_id", "order_id"], name: "index_orders_products_on_product_id_and_order_id"
+    t.bigint "variant_id", null: false
+    t.index ["order_id", "variant_id"], name: "index_orders_variants_on_order_id_and_variant_id"
+    t.index ["variant_id", "order_id"], name: "index_orders_variants_on_variant_id_and_order_id"
   end
 
   create_table "products", force: :cascade do |t|

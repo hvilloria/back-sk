@@ -2,7 +2,7 @@ module Api
   class OrdersController < ApplicationController
     def index
       @orders = Order.today_ones
-      render json: @orders, include: ['products.variants'], status: :ok
+      render json: @orders, status: :ok
     end
 
     def create
@@ -18,7 +18,7 @@ module Api
       params.require(:order)
             .permit(:tracking_id, :service_type, :shipping_cost, :total,
                     :notes, :payment_type, :client_name, :client_phone_number,
-                    :state, product_ids: [])
+                    :state, variant_ids: [])
     end
   end
 end
