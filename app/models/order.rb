@@ -9,7 +9,10 @@ class Order < ApplicationRecord
                        odc: 'online debit card', lcc: 'local credit card',
                        ldc: 'local debit card' }
 
-  scope :today_ones, -> { select { |order| order.created_at.today? } }
+  def self.today_ones
+    orders = order(created_at: :desc)
+    orders.select { |order| order.created_at.today? }
+  end
 
   before_create :set_tracking_id, unless: :py?
   before_create :set_shipping_cost, if: :dl?
