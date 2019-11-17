@@ -9,7 +9,7 @@ class TrackingIdGenerator
   end
 
   def valid_moment_to_start?
-    last_order.created_at.today? || !start_of_month?
+    last_tk_or_dl.created_at.today? || !start_of_month?
   end
 
   def formatted_value
@@ -18,11 +18,11 @@ class TrackingIdGenerator
   end
 
   def last_tracking_id
-    @last_tracking_id ||= last_order&.tracking_id&.to_i
+    @last_tracking_id ||= last_tk_or_dl&.tracking_id&.to_i
   end
 
-  def last_order
-    @last_order ||= Order.last
+  def last_tk_or_dl
+    @last_tk_or_dl ||= Order.where(service_type: %i[dl tk]).last
   end
 
   def first_day_of_the_month
