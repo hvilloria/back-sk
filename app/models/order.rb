@@ -28,15 +28,15 @@ class Order < ApplicationRecord
   end
 
   aasm column: 'state' do
-    state :created, initial: true
+    state :confirmed, initial: true
     state :finished, :canceled
 
     event :finish do
-      transitions from: :created, to: :finished
+      transitions from: :confirmed, to: :finished
     end
 
     event :cancel do
-      transitions from: :created, to: :canceled
+      transitions from: :confirmed, to: :canceled
     end
   end
 end

@@ -12,6 +12,14 @@ module Api
       render json: order, status: :created
     end
 
+    def modify_status
+      order = Order.find(params[:id])
+      order.send(params[:status])
+      return unprocessable_entity(order.errors) unless order.save
+
+      render json: order, status: :ok
+    end
+
     def update
       order = Order.find(params[:id])
       order.assign_attributes(update_params)
