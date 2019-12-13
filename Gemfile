@@ -10,6 +10,7 @@ gem 'active_model_serializers', '~> 0.10.10'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise_token_auth'
 gem 'rack-cors', '~> 1.0', '>= 1.0.3'
+gem 'aasm'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

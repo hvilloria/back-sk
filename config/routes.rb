@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :api do
     resources :categories, only: %i[index create update]
     resources :products, only: [:update]
-    resources :orders, only: %i[index create]
+    resources :orders, only: %i[index create update] do
+      patch :modify_status, on: :member
+    end
   end
 end
