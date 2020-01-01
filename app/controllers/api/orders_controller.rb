@@ -1,5 +1,6 @@
 module Api
   class OrdersController < ApplicationController
+    before_action :authenticate_user!
     def index
       @orders = Order.today_ones
       render json: @orders, status: :ok

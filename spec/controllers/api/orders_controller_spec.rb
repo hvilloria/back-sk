@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::OrdersController, type: :controller do
+  include_context 'logged_user'
   describe 'POST #create' do
     before do
-      create(:user)
       create(:category)
       create(:product, category: Category.last)
       create(:variant, product: Product.last)
