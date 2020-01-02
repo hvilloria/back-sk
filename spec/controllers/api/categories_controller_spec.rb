@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::CategoriesController, type: :controller do
+  include_context 'logged_user'
   describe 'GET #index' do
     context 'when there are not categories created' do
       before { get :index }

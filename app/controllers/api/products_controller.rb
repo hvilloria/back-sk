@@ -1,5 +1,6 @@
 module Api
   class ProductsController < ApplicationController
+    before_action :authenticate_user!
     def update
       product = Product.find(params[:id])
       product.assign_attributes(product_permitted_params)

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::ProductsController, type: :controller do
+  include_context 'logged_user'
   describe 'PATCH #update' do
     let(:category) { create(:category) }
     let(:product) { create(:product, category: category) }
