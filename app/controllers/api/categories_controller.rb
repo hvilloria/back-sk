@@ -2,8 +2,8 @@ module Api
   class CategoriesController < ApplicationController
     before_action :authenticate_user!, except: :index
     def index
-      @categories = Category.active_ones
-      render json: @categories, include: ['products.variants'], status: :ok
+      categories = Category.active_ones
+      render json: categories, include: ['products.variants'], status: :ok
     end
 
     def create
