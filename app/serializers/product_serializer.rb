@@ -1,5 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :status
+  attributes :id, :name, :status, :variants
 
-  has_many :variants
+  def variants
+    ActiveModelSerializers::SerializableResource.new(object.variants)
+  end
 end
