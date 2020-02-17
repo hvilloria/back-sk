@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :orders, only: %i[index create update] do
       patch :modify_status, on: :member
     end
+    resources :sells, only: %i[index]
   end
 end
