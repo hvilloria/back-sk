@@ -33,7 +33,7 @@ module Api
 
     def order_params
       params.require(:order)
-            .permit(:tracking_id, :service_type, :shipping_cost, :total,
+            .permit(:tracking_id, :service_type, :shipping_cost, :total, :address,
                     :notes, :payment_type, :client_name, :client_phone_number,
                     :state, variant_ids: [])
     end
