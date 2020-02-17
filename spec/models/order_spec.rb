@@ -8,13 +8,6 @@ RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:total) }
   it { is_expected.to validate_presence_of(:payment_type) }
 
-  context 'when the service is pedidos ya' do
-    it 'does not generate a tracking id' do
-      expect(TrackingIdGenerator).not_to receive(:new)
-      create(:order, :pedidos_ya_service)
-    end
-  end
-
   context 'when is not an external service' do
     it 'generates a tracking id' do
       expect(TrackingIdGenerator).to receive_message_chain(:new, :start)

@@ -6,11 +6,6 @@ FactoryBot.define do
     client_name { Faker::Name.name }
     client_phone_number { Faker::Number.number(digits: 10) }
 
-    trait :pedidos_ya_service do
-      tracking_id { '3321' }
-      service_type { :py }
-    end
-
     before(:create) do |order|
       create(:category)
       product = FactoryBot.create(:product, category: Category.last)

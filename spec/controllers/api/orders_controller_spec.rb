@@ -7,6 +7,7 @@ RSpec.describe Api::OrdersController, type: :controller do
       create(:category)
       create(:product, category: Category.last)
       create(:variant, product: Product.last)
+      Shipping.create!(value: 0)
       post :create, params: params
     end
 
@@ -16,7 +17,7 @@ RSpec.describe Api::OrdersController, type: :controller do
           'order': {
             'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
-            'service_type': 'pedidos ya',
+            'service_type': 'tk',
             'total': nil,
             'notes': 'sin notas',
             'payment_type': 'cash'
@@ -34,7 +35,7 @@ RSpec.describe Api::OrdersController, type: :controller do
           'order': {
             'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
-            'service_type': 'pedidos ya',
+            'service_type': 'dl',
             'total': 3123.23,
             'notes': 'sin notas',
             'payment_type': 'cash',
