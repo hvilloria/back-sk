@@ -15,26 +15,11 @@ class Order < ApplicationRecord
   before_create :set_tracking_id
   before_create :set_shipping_cost, if: :dl?
 
-  include AASM
-
   def set_tracking_id
     self.tracking_id = TrackingIdGenerator.new.start
   end
 
   def set_shipping_cost
     self.shipping_cost = Shipping.last.value
-  end
-
-  aasm column: 'state' do
-    state :confirmed, initial: true
-    state :finished, :canceled
-
-    event :finish do
-      transitions from: :confirmed, to: :finished
-    end
-
-    event :cancel do
-      transitions from: :confirmed, to: :canceled
-    end
   end
 end
