@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from AASM::InvalidTransition, with: :invalid_transition
 
   def record_not_found
     render json: { error: 'record not found' }, status: :not_found
@@ -14,11 +13,5 @@ class ApplicationController < ActionController::API
 
   def unprocessable_entity(err)
     render json: { error: err }, status: :unprocessable_entity
-  end
-
-  def invalid_transition
-    render json: {
-      error: 'invalid state transition'
-    }, status: :unprocessable_entity
   end
 end

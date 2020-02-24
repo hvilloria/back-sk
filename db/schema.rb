@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_134921) do
+ActiveRecord::Schema.define(version: 2020_02_18_142429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_134921) do
     t.string "payment_type", default: "cash", null: false
     t.string "client_name"
     t.string "client_phone_number"
-    t.string "state"
+    t.string "address"
   end
 
   create_table "orders_variants", id: false, force: :cascade do |t|

@@ -4,20 +4,24 @@ class Order < ApplicationRecord
   validates :variants, :service_type, :total, :payment_type, :client_name,
             :client_phone_number, presence: true
 
-  enum service_type: { dl: 'local delivery', tk: 'take away', py: 'pedidos ya' }
-  enum payment_type: { cash: 'cash', occ: 'online credit card',
-                       odc: 'online debit card', lcc: 'local credit card',
-                       ldc: 'local debit card' }
+  enum service_type: { dl: 'local delivery', tk: 'take away' }
+  enum payment_type: { cash: 'cash', online: 'online' }
 
   def self.today_ones
     orders = order(created_at: :desc)
     orders.select { |order| order.created_at.today? }
   end
 
-  before_create :set_tracking_id, unless: :py?
-  before_create :set_shipping_cost, if: :dl?
+  def self.deliverys
+    dl.today_ones
+  end
 
-  include AASM
+  def self.take_aways
+    tk.today_ones
+  end
+
+  before_create :set_tracking_id
+  before_create :set_shipping_cost, if: :dl?
 
   def set_tracking_id
     self.tracking_id = TrackingIdGenerator.new.start
@@ -25,18 +29,5 @@ class Order < ApplicationRecord
 
   def set_shipping_cost
     self.shipping_cost = Shipping.last.value
-  end
-
-  aasm column: 'state' do
-    state :confirmed, initial: true
-    state :finished, :canceled
-
-    event :finish do
-      transitions from: :confirmed, to: :finished
-    end
-
-    event :cancel do
-      transitions from: :confirmed, to: :canceled
-    end
   end
 end
