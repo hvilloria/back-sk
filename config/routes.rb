@@ -6,9 +6,7 @@ Rails.application.routes.draw do
     resources :products, only: [:update] do
       resources :variants, only: [:update], shallow: true
     end
-    resources :orders, only: %i[index create update] do
-      patch :modify_status, on: :member
-    end
+    resources :orders, only: %i[index create update]
     resources :sells, only: %i[index]
   end
 end

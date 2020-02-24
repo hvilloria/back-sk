@@ -35,12 +35,12 @@ module Api
       params.require(:order)
             .permit(:tracking_id, :service_type, :shipping_cost, :total, :address,
                     :notes, :payment_type, :client_name, :client_phone_number,
-                    :state, variant_ids: [])
+                    variant_ids: [])
     end
 
     def update_params
       params.require(:order)
-            .permit(:service_type, :shipping_cost, :total, :notes, :state)
+            .permit(:service_type, :shipping_cost, :total, :notes)
     end
   end
 end
