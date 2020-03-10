@@ -12,14 +12,6 @@ class Order < ApplicationRecord
     orders.select { |order| order.created_at.today? }
   end
 
-  def self.deliverys
-    dl.today_ones
-  end
-
-  def self.take_aways
-    tk.today_ones
-  end
-
   before_create :set_tracking_id
   before_create :set_shipping_cost, if: :dl?
 
