@@ -4,7 +4,7 @@ module Api
     def index
       sells = {
         online: Order.online.today_ones.pluck(:total).reduce(:+),
-        cash: Order.cash.today_ones.pluck(:total).reduce(:+),
+        cash: Order.cash.today_ones.pluck(:total).reduce(:+)
       }
       render json: sells, status: :ok
     end
