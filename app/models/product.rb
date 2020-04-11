@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id          :bigint           not null, primary key
+#  name        :string           not null
+#  status      :string           default("active"), not null
+#  category_id :bigint
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
 class Product < ApplicationRecord
   belongs_to :category
   has_one :discount
