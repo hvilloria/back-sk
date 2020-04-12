@@ -13,5 +13,9 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :variant
 
-  validates_with PriceValidator
+  validates :price, presence: true
+
+  before_create do
+    price = variant.price
+  end
 end

@@ -4,6 +4,7 @@ FactoryBot.define do
     price { Faker::Number.within(range: 200..1000) }
     base { false }
     status { 'active' }
+    association :product
   end
 
   trait :base_variant do

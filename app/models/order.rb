@@ -16,7 +16,7 @@
 #  address             :string
 #
 class Order < ApplicationRecord
-  has_many :order_details, dependent: :destroy
+  has_many :order_details, inverse_of: :order, dependent: :destroy
   accepts_nested_attributes_for :order_details
 
   validates :service_type, :total, :payment_type, :client_name,
@@ -38,6 +38,6 @@ class Order < ApplicationRecord
   end
 
   def set_shipping_cost
-    self.shipping_cost = Shipping.last.value
+    self.shipping_cost = Shipping.last&.value || 0
   end
 end

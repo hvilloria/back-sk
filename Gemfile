@@ -30,6 +30,7 @@ group :test do
   gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
   gem 'database_cleaner', '~> 1.7'
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
+  gem 'simplecov', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
