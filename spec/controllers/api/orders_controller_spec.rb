@@ -41,8 +41,8 @@ RSpec.describe Api::OrdersController, type: :controller do
             'client_name': 'Pedro',
             'client_phone_number': 'Perez',
             'order_details_attributes': [
-              {'variant_id': Variant.last.id, 'price': Variant.last.price},
-          ]
+              { 'variant_id': Variant.last.id, 'price': Variant.last.price }
+            ]
           }
         }
       end

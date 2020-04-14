@@ -16,6 +16,6 @@ class OrderDetail < ApplicationRecord
   validates :price, presence: true
 
   before_create do
-    price = variant.price
+    self.price = variant.price
   end
 end
