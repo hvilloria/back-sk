@@ -22,9 +22,6 @@ ActiveRecord::Schema.define(version: 2020_03_29_152650) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "discounts", force: :cascade do |t|
     t.integer "amount", null: false
     t.bigint "category_id"
