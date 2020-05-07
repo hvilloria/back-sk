@@ -72,21 +72,21 @@ RSpec.describe Api::ProductsController, type: :controller do
   describe 'POST #create' do
     context 'when some params are not present' do
       let(:request_params_without_category_id) do
-          {
-            "product": {
-            "name": "new product",
-            "status": "active",
+        {
+          'product': {
+            "name": 'new product',
+            "status": 'active',
             "variants_attributes": [{
               "base": false,
-              "name": "a variant of that product",
+              "name": 'a variant of that product',
               "price": 123.6,
-              "status": "active"
+              "status": 'active'
             }]
           }
         }
       end
 
-      before { post :create, params: request_params_without_category_id  }
+      before { post :create, params: request_params_without_category_id }
 
       it 'returns a bad request status' do
         expect(response).to have_http_status(:bad_request)
@@ -102,16 +102,16 @@ RSpec.describe Api::ProductsController, type: :controller do
 
       let(:all_params_present) do
         {
-          "product": {
-          "name": "new product",
-          "status": "active",
-          "category_id": category.id,
-          "variants_attributes": [{
-            "base": false,
-            "name": "a variant of that product",
-            "price": 123.6,
-            "status": "active"
-          }]
+          'product': {
+            'name': 'new product',
+            'status': 'active',
+            'category_id': category.id,
+            'variants_attributes': [{
+              'base': false,
+              'name': 'a variant of that product',
+              "price": 123.6,
+              'status': 'active'
+            }]
           }
         }
       end
