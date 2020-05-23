@@ -1,6 +1,21 @@
+# == Schema Information
+#
+# Table name: variants
+#
+#  id          :bigint           not null, primary key
+#  price       :float
+#  name        :string
+#  base        :boolean          not null
+#  product_id  :bigint
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  status      :string           default("active"), not null
+#  description :text
+#
 class Variant < ApplicationRecord
   belongs_to :product
   has_and_belongs_to_many :orders
+  has_many :order_details
 
   validates :price, :product, :status, presence: true
   validates :base, inclusion: { in: [true, false] }

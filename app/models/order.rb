@@ -1,7 +1,25 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id                  :bigint           not null, primary key
+#  tracking_id         :string
+#  service_type        :string
+#  shipping_cost       :integer          default(0)
+#  total               :float
+#  notes               :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  payment_type        :string           default("cash"), not null
+#  client_name         :string
+#  client_phone_number :string
+#  address             :string
+#
 class Order < ApplicationRecord
-  has_and_belongs_to_many :variants
+  has_many :order_details, inverse_of: :order, dependent: :destroy
+  accepts_nested_attributes_for :order_details
 
-  validates :variants, :service_type, :total, :payment_type, :client_name,
+  validates :service_type, :total, :payment_type, :client_name,
             :client_phone_number, presence: true
 
   enum service_type: { dl: 'local delivery', tk: 'take away' }
@@ -20,6 +38,6 @@ class Order < ApplicationRecord
   end
 
   def set_shipping_cost
-    self.shipping_cost = Shipping.last.value
+    self.shipping_cost = Shipping.last&.value || 0
   end
 end

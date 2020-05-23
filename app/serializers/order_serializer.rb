@@ -5,10 +5,10 @@ class OrderSerializer < ActiveModel::Serializer
              :address, :id
 
   def products
-    object.variants.map do |variant|
+    object.order_details.map do |od|
       {
-        name: "#{variant.product.name} #{variant.name}",
-        price: variant.price
+        name: "#{od.variant.product.name} #{od.variant.name}",
+        price: od.price
       }
     end
   end
