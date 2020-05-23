@@ -5,6 +5,7 @@ RSpec.describe Product, type: :model do
   it { is_expected.to validate_presence_of(:status) }
   it { is_expected.to belong_to(:category) }
   it { is_expected.to have_one(:discount) }
+  it { is_expected.to have_and_belong_to_many(:p_groups) }
 
   context 'when there is not presentation' do
     let(:category) { create(:category) }
