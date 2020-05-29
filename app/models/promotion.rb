@@ -1,5 +1,7 @@
 class Promotion < ApplicationRecord
-  has_many :p_groups
+  has_many :p_groups, dependent: :destroy
+
+  accepts_nested_attributes_for :p_groups
 
   validates :status, :from_date, :to_date, :frequency, :kind, presence: true
 

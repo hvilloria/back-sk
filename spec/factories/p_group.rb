@@ -9,8 +9,9 @@ FactoryBot.define do
 
     after(:create) do |p_group|
       category = FactoryBot.create(:category)
-      products = FactoryBot.create_list(:product, 5, category: category)
-      p_group.products << products
+      product = FactoryBot.create(:product, category: category)
+      variants = FactoryBot.create_list(:variant, 5, product: product)
+      p_group.variants << variants
     end
   end
 end

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     end
     resources :orders, only: %i[index create update]
     resources :sells, only: %i[index]
+    resources :promotions
   end
 end
