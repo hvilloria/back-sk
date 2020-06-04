@@ -16,11 +16,17 @@ module Api
       render json: product, status: :created
     end
 
+    def destroy
+      product = Product.find(params[:id])
+      product.destroy
+      head :ok
+    end
+
     private
 
     def product_permitted_params
       params.require(:product)
-            .permit(:name, :status, :category_id,
+            .permit(:name, :status, :category_id, :description,
                     variants_attributes: %i[id base name price status])
     end
   end

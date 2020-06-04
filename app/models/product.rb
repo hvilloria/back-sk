@@ -14,7 +14,7 @@ class Product < ApplicationRecord
   has_one :discount
   has_many :variants, dependent: :destroy, inverse_of: :product
 
-  accepts_nested_attributes_for :variants
+  accepts_nested_attributes_for :variants, reject_if: proc { |attributes| attributes['price'] == 0 }
 
   validates :name, :status, presence: true
 
