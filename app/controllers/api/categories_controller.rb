@@ -3,8 +3,10 @@ module Api
     before_action :authenticate_user!, except: :index
     def index
       categories = Category.includes(products: :variants)
-                           .active_ones
+                           .where('products.status = ?', 'active')
                            .references(:products)
+                           .where('variants.status = ?', 'active')
+                           .references(:variants)
       render json: categories, status: :ok
     end
 

@@ -18,7 +18,7 @@ module Api
 
     def destroy
       product = Product.find(params[:id])
-      product.destroy
+      product.inactive!
       head :ok
     end
 

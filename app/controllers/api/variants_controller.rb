@@ -10,6 +10,12 @@ module Api
       render json: variant, status: :ok
     end
 
+    def destroy
+      variant = Variant.find(params[:id])
+      variant.inactive!
+      head :ok
+    end
+
     private
 
     def variant_permitted_params

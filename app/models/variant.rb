@@ -22,8 +22,14 @@ class Variant < ApplicationRecord
   validates :name, presence: true, if: proc { |v| !v.base }
   validates :name, absence: true, if: proc { |v| v.base }
 
+  after_update :inactive_product
+
   enum status: { active: 'active', inactive: 'inactive' }
 
   scope :active_ones, -> { where(status: 'active') }
   scope :inactive_ones, -> { where(status: 'inactive') }
+
+  def inactive_product
+    product.inactive! if product.variants.active.empty?
+  end
 end
