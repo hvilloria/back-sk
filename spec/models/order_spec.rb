@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  it { is_expected.to have_and_belong_to_many(:variants) }
+  it { is_expected.to have_many(:order_details) }
 
-  it { is_expected.to validate_presence_of(:variants) }
   it { is_expected.to validate_presence_of(:service_type) }
   it { is_expected.to validate_presence_of(:total) }
   it { is_expected.to validate_presence_of(:payment_type) }

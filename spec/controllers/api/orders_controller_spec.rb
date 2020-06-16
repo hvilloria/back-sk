@@ -33,14 +33,16 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
             'service_type': 'dl',
             'total': 3123.23,
             'notes': 'sin notas',
             'payment_type': 'cash',
             'client_name': 'Pedro',
-            'client_phone_number': 'Perez'
+            'client_phone_number': 'Perez',
+            'order_details_attributes': [
+              { 'variant_id': Variant.last.id, 'price': Variant.last.price }
+            ]
           }
         }
       end

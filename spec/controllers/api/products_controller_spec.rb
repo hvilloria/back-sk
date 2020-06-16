@@ -28,7 +28,8 @@ RSpec.describe Api::ProductsController, type: :controller do
             variants_attributes: [
               {
                 id: variant.id,
-                name: 'updated name'
+                name: 'updated name',
+                price: 200
               }
             ]
           }
@@ -65,6 +66,65 @@ RSpec.describe Api::ProductsController, type: :controller do
 
       it 'returns an error message' do
         expect(response.body.to_json).to include('error')
+      end
+    end
+  end
+
+  describe 'POST #create' do
+    context 'when some params are not present' do
+      let(:request_params_without_category_id) do
+        {
+          'product': {
+            "name": 'new product',
+            "status": 'active',
+            "variants_attributes": [{
+              "base": false,
+              "name": 'a variant of that product',
+              "price": 123.6,
+              "status": 'active'
+            }]
+          }
+        }
+      end
+
+      before { post :create, params: request_params_without_category_id }
+
+      it 'returns a bad request status' do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'returns the error message' do
+        expect(response_body[:error][:category]).to include('must exist')
+      end
+    end
+
+    context 'when all params are present' do
+      let!(:category) { create(:category) }
+
+      let(:all_params_present) do
+        {
+          'product': {
+            'name': 'new product',
+            'status': 'active',
+            'category_id': category.id,
+            'variants_attributes': [{
+              'base': false,
+              'name': 'a variant of that product',
+              "price": 123.6,
+              'status': 'active'
+            }]
+          }
+        }
+      end
+
+      before { post :create, params: all_params_present }
+
+      it 'responds with status created' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns the product object serialized' do
+        expect(response_body).to include(:id)
       end
     end
   end
