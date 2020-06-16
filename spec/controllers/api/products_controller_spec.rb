@@ -28,7 +28,8 @@ RSpec.describe Api::ProductsController, type: :controller do
             variants_attributes: [
               {
                 id: variant.id,
-                name: 'updated name'
+                name: 'updated name',
+                price: 200
               }
             ]
           }
