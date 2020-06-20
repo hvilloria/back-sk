@@ -30,14 +30,15 @@ class Order < ApplicationRecord
     orders.select { |order| order.created_at.today? }
   end
 
+  before_create :sum_shipping, if: Proc.new { |order| !order.shipping_cost.zero? }
   before_create :set_tracking_id
-  before_create :set_shipping_cost, if: :dl?
+
 
   def set_tracking_id
     self.tracking_id = TrackingIdGenerator.new.start
   end
 
-  def set_shipping_cost
-    self.shipping_cost = Shipping.last&.value || 0
+  def sum_shipping
+    self.total += shipping_cost
   end
 end
