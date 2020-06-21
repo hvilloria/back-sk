@@ -11,5 +11,5 @@
 class Shipping < ApplicationRecord
   validates :value, :distance, presence: true
 
-  enum distance: { 'inside_range': 'inside_range', '3km': '3km'}
+  enum distance: { 'inside_range': 'inside_range', '3km': '3km' }
 end
