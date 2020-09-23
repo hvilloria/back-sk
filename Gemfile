@@ -9,6 +9,7 @@ gem 'puma',  ">= 3.12.4"
 gem 'active_model_serializers', '~> 0.10.10'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise_token_auth'
+gem 'rack', '>= 2.2.3'
 gem 'rack-cors', '~> 1.0', '>= 1.0.3'
 gem 'data_migrate', '~> 6.3'
 
