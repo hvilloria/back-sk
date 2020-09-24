@@ -16,8 +16,10 @@ RSpec.describe Api::CategoriesController, type: :controller do
 
     context 'when there are categories created' do
       let(:category) { create(:category) }
-      let!(:products) { create_list(:product, 5, category: category) }
-      before { get :index }
+      before do
+        create_list(:product_with_variant, 5, category: category)
+        get :index
+      end
       it 'returns a non empty array' do
         body = JSON.parse(response.body)
         expect(body).not_to be_empty

@@ -7,7 +7,8 @@ RSpec.describe Api::OrdersController, type: :controller do
       create(:category)
       create(:product, category: Category.last)
       create(:variant, product: Product.last)
-      Shipping.create!(value: 0)
+      Shipping.create!(distance: 'inside_range', value: 0)
+      Shipping.create!(distance: '3km', value: 100)
       post :create, params: params
     end
 
@@ -21,7 +22,8 @@ RSpec.describe Api::OrdersController, type: :controller do
             'total': nil,
             'notes': 'sin notas',
             'payment_type': 'cash'
-          }
+          },
+          'distance': true
         }
       end
 
@@ -33,15 +35,18 @@ RSpec.describe Api::OrdersController, type: :controller do
       let(:params) do
         {
           'order': {
-            'variant_ids': [Variant.last.id],
             'tracking_id': '1322',
             'service_type': 'dl',
             'total': 3123.23,
             'notes': 'sin notas',
             'payment_type': 'cash',
             'client_name': 'Pedro',
-            'client_phone_number': 'Perez'
-          }
+            'client_phone_number': 'Perez',
+            'order_details_attributes': [
+              { 'variant_id': Variant.last.id, 'price': Variant.last.price }
+            ]
+          },
+          'distance': true
         }
       end
       it 'returns status created' do

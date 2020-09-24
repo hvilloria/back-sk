@@ -7,7 +7,10 @@ module Api
     end
 
     def create
-      order = Order.create(order_params)
+      order = Order.new(order_params)
+      shipping_cost = ShippingFromDistanceRetriever.new.call(params[:distance], order)
+      order.shipping_cost = shipping_cost
+      order.save
       return bad_request(order.errors) unless order.errors.blank?
 
       render json: order, status: :created
@@ -33,14 +36,14 @@ module Api
 
     def order_params
       params.require(:order)
-            .permit(:tracking_id, :service_type, :shipping_cost, :total, :address,
+            .permit(:tracking_id, :service_type, :total, :address,
                     :notes, :payment_type, :client_name, :client_phone_number,
-                    variant_ids: [])
+                    order_details_attributes: %i[variant_id price])
     end
 
     def update_params
       params.require(:order)
-            .permit(:service_type, :shipping_cost, :total, :notes)
+            .permit(:service_type, :total, :notes)
     end
   end
 end
