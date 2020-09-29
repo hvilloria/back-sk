@@ -1,9 +1,15 @@
 class PromotionSerializer < ActiveModel::Serializer
   attributes :id, :kind, :from_date, :to_date,
-             :base_price, :percentage, :frequency,
-             :status, :groups
+             :value, :frequency,
+             :status, :products
 
-  def groups
-    ActiveModel::SerializableResource.new(object.p_groups, each_serializer: PGroupSerializer)
+  def products
+    object.variants.map do |variant|
+      {
+        id: variant.id,
+        name: "#{variant.product.name} #{variant.name}",
+        price: variant.price
+      }
+    end
   end
 end

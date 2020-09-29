@@ -12,8 +12,8 @@ module Api
     end
 
     def create
-      promotion = Promotion.create(promotion_permitted_params)
-      return bad_request(promotion.errors) unless promotion.errors.blank?
+      promotion = Promotion.new(promotion_permitted_params)
+      return bad_request(promotion.errors) unless promotion.save
 
       render json: promotion, status: :created
     end
@@ -38,8 +38,8 @@ module Api
 
     def promotion_permitted_params
       params.require(:promotion)
-            .permit(:status, :from_date, :to_date, :kind, :base_price, :percentage,
-                    frequency: [], p_groups_attributes: [:id, :kind, :_destroy, variant_ids: []])
+            .permit(:status, :from_date, :to_date, :kind, :value,
+                    frequency: [], variant_ids: [])
     end
   end
 end

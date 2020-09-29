@@ -5,6 +5,6 @@ FactoryBot.define do
     to_date { DateTime.now + 10.days }
     frequency { %w[tuesday friday] }
     kind { 'percentage' }
-    percentage { Faker::Number.within(range: 1..99) }
+    value { Faker::Number.within(range: 1..99) }
   end
 end

@@ -1,0 +1,42 @@
+hot_shrimp_roll:
+  id: 7
+  base: true
+  status: 'active'
+  product_id: 3
+
+salmon_shibo_roll:
+  id: 8
+  base: true
+  status: 'active'
+  product_id: 4
+
+tango_roll:
+  id: 9
+  base: true
+  status: 'active'
+  product_id: 5
+
+tropical_wrap:
+  id: 10
+  base: false
+  name: 'Tropical'
+  status: 'active'
+  price: 150
+  product_id: 6
+
+salmon_wrap:
+  id: 11
+  base: false
+  name: 'Salmon'
+  status: 'active'
+  price: 310
+  product_id: 6
+
+shrimp_wrap:
+  id: 12
+  base: false
+  name: 'Langostino'
+  price: 320
+  status: 'active'
+  product_id: 6
+

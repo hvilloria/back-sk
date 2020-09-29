@@ -1,5 +1,5 @@
 class PGroupSerializer < ActiveModel::Serializer
-  attributes :id, :kind, :products
+  attributes :id, :products
 
   def products
     object.variants.map do |variant|

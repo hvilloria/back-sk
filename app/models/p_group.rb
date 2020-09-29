@@ -1,8 +1,14 @@
+# == Schema Information
+#
+# Table name: p_groups
+#
+#  id           :bigint           not null, primary key
+#  promotion_id :bigint
+#  variant_id   :bigint
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 class PGroup < ApplicationRecord
   belongs_to :promotion
-  has_and_belongs_to_many :variants
-
-  validates :promotion, :kind, presence: true
-
-  enum kind: { sellable: 'sellable', giftable: 'giftable' }
+  belongs_to :variant
 end

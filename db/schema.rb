@@ -64,11 +64,12 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
   end
 
   create_table "p_groups", force: :cascade do |t|
-    t.string "kind", default: "sellable", null: false
     t.bigint "promotion_id"
+    t.bigint "variant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["promotion_id"], name: "index_p_groups_on_promotion_id"
+    t.index ["variant_id"], name: "index_p_groups_on_variant_id"
   end
 
   create_table "p_groups_variants", id: false, force: :cascade do |t|
@@ -89,12 +90,11 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
 
   create_table "promotions", force: :cascade do |t|
     t.string "status", default: "inactive", null: false
-    t.datetime "from_date", default: "2020-05-29 21:00:00", null: false
+    t.datetime "from_date", default: "2020-09-29 21:00:00", null: false
     t.datetime "to_date", default: "2020-12-31 23:50:00", null: false
     t.string "frequency", null: false, array: true
-    t.string "kind", default: "percentage", null: false
-    t.float "base_price"
-    t.integer "percentage"
+    t.string "kind", default: "price", null: false
+    t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -143,9 +143,10 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
 
   add_foreign_key "discounts", "categories"
   add_foreign_key "discounts", "products"
-  add_foreign_key "p_groups", "promotions"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "variants"
+  add_foreign_key "p_groups", "promotions"
+  add_foreign_key "p_groups", "variants"
   add_foreign_key "products", "categories"
   add_foreign_key "variants", "products"
 end

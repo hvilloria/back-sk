@@ -15,8 +15,10 @@
 class Variant < ApplicationRecord
   belongs_to :product
   has_and_belongs_to_many :orders
-  has_and_belongs_to_many :p_groups
   has_many :order_details
+
+  has_many :p_groups
+  has_many :promotions, through: :p_groups
 
   validates :price, :product, :status, presence: true
   validates :base, inclusion: { in: [true, false] }

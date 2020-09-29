@@ -79,14 +79,16 @@ RSpec.describe Api::PromotionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    fixtures :categories, :products, :variants
+
     subject(:create_promotion) do
       post :create, params: { promotion: request_params }
     end
 
     context 'with correct params' do
-      let(:promotion) { build(:promotion) }
-      let(:p_group) { build(:p_group) }
-      let(:request_params) { promotion.attributes.merge(p_groups: [p_group]) }
+      let(:tropical_wrap) { Variant.find(10) }
+      let(:p_group) { build(:p_group, variant: tropical_wrap) }
+      let(:request_params) { attributes_for(:promotion).merge(variant_ids: [tropical_wrap.id]) }
 
       it 'creates the promotion' do
         expect { create_promotion }.to change { Promotion.count }.by(1)
@@ -95,6 +97,26 @@ RSpec.describe Api::PromotionsController, type: :controller do
       it 'responds with status created' do
         create_promotion
         expect(response).to have_http_status(:created)
+      end
+
+      it 'creates a promotion for a given variant' do
+        create_promotion
+        expect(Promotion.last.variants).to include(tropical_wrap)
+      end
+
+      it 'returns the promotion with correct attributes' do
+        create_promotion
+        expect(response_body[:frequency]).to eq(request_params[:frequency])
+        expect(response_body[:kind]).to eq(request_params[:kind])
+        expect(response_body[:value]).to eq(request_params[:value])
+        expect(response_body[:from_date].to_time.to_i).to eq(request_params[:from_date].to_i)
+        expect(response_body[:to_date].to_time.to_i).to eq(request_params[:to_date].to_i)
+        expect(response_body[:status]).to eq(request_params[:status])
+      end
+
+      it 'returns the promotion with variant nested' do
+        create_promotion
+        expect(response_body[:products].first[:id]).to eq(tropical_wrap.id)
       end
     end
 
@@ -121,7 +143,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
     end
 
     context 'with correct params' do
-      let(:request_params) { { kind: 'two_for_one' } }
+      let(:request_params) { { kind: 'percentage' } }
 
       it 'updates the promotion' do
         update_promotion
