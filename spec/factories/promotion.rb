@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :promotion do
     status { 'active' }
-    from_date { DateTime.now }
-    to_date { DateTime.now + 10.days }
+    from_date { Time.zone.now }
+    to_date { Time.zone.now + 10.days }
     frequency { %w[tuesday friday] }
     kind { 'percentage' }
     value { Faker::Number.within(range: 1..99) }

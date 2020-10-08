@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::PromotionsController, type: :controller do
+RSpec.describe 'Promotions requests' do
   include_context 'logged_user'
 
   describe 'GET #index' do
@@ -8,7 +8,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
       let!(:promotions) { create_list(:promotion, 5) }
 
       before do
-        get :index
+        get '/api/promotions', headers: @tokens
       end
 
       it 'responds with a not empty array' do
@@ -32,7 +32,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
     end
 
     context 'when there are not promotions created' do
-      before { get :index }
+      before { get '/api/promotions', headers: @tokens }
 
       it 'returns an empty array' do
         expect(response_body).to eq([])
@@ -49,7 +49,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
       let!(:promotion) { create(:promotion) }
 
       before do
-        get :show, params: { id: promotion.id }
+        get "/api/promotions/#{promotion.id}", headers: @tokens
       end
 
       it 'responds with 200 status' do
@@ -65,7 +65,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
 
     context 'when given a non-existent ID' do
       before do
-        get :show, params: { id: 1 }
+        get "/api/promotions/#{1}", headers: @tokens
       end
 
       it 'responds with an error message' do
@@ -82,7 +82,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
     fixtures :categories, :products, :variants
 
     subject(:create_promotion) do
-      post :create, params: { promotion: request_params }
+      post '/api/promotions', params: { promotion: request_params }, headers: @tokens
     end
 
     context 'with correct params' do
@@ -138,7 +138,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
     let(:promotion) { create(:promotion) }
 
     subject(:update_promotion) do
-      patch :update, params: { id: promotion.id, promotion: request_params }
+      patch "/api/promotions/#{promotion.id}", params: { promotion: request_params }, headers: @tokens
       promotion.reload
     end
 
@@ -172,7 +172,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
 
     context 'with an invalid promotion id' do
       subject(:update_promotion) do
-        patch :update, params: { id: 5, promotion: request_params }
+        patch "/api/promotions/#{5}", params: { id: 5, promotion: request_params }, headers: @tokens
       end
 
       let(:request_params) { { kind: 'two_for_one' } }
@@ -194,7 +194,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
       let!(:promotion) { create(:promotion) }
 
       subject(:delete_promotion) do
-        delete :destroy, params: { id: promotion.id }
+        delete "/api/promotions/#{promotion.id}", headers: @tokens
       end
 
       it 'removes the promotion' do
@@ -209,7 +209,7 @@ RSpec.describe Api::PromotionsController, type: :controller do
 
     context 'when given a non-existent ID' do
       subject(:delete_promotion) do
-        delete :destroy, params: { id: 1 }
+        delete "/api/promotions/#{1}", headers: @tokens
       end
 
       it 'does not removes the promotion' do

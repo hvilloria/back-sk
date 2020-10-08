@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Api::CategoriesController, type: :controller do
+RSpec.describe 'Categories requests' do
   include_context 'logged_user'
   describe 'GET #index' do
     context 'when there are not categories created' do
-      before { get :index }
+      before { get '/api/categories', headers: @tokens }
       it 'returns an empty array' do
         body = JSON.parse(response.body)
         expect(body).to eq([])
@@ -18,7 +18,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
       let(:category) { create(:category) }
       before do
         create_list(:product_with_variant, 5, category: category)
-        get :index
+        get '/api/categories', headers: @tokens
       end
       it 'returns a non empty array' do
         body = JSON.parse(response.body)
@@ -32,7 +32,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
 
   describe 'POST #create' do
     subject(:create_category) do
-      post :create, params: { category: request_params }
+      post '/api/categories', params: { category: request_params }, headers: @tokens
     end
 
     context 'with correct params' do
@@ -63,7 +63,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
   describe 'PATCH #update' do
     let(:category) { create(:category) }
     before do
-      patch :update, params: { id: category.id, category: request_params }
+      patch "/api/categories/#{category.id}", params: { category: request_params }, headers: @tokens
       category.reload
     end
 
@@ -92,7 +92,7 @@ RSpec.describe Api::CategoriesController, type: :controller do
 
     context 'with an invalid category id' do
       before do
-        patch :update, params: { id: 5, category: request_params }
+        patch "/api/categories/#{5}", params: { category: request_params }, headers: @tokens
         category.reload
       end
       let(:request_params) { { name: 'new name' } }

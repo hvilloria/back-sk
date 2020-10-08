@@ -62,7 +62,7 @@ RSpec.describe Variant, type: :model do
 
     context 'when using active_ones scope' do
       it 'shows only the active variants' do
-        expect(described_class.active_ones.size).to eq(4)
+        expect(described_class.active_ones.size).to eq(10)
       end
     end
 
