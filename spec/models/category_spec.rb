@@ -14,7 +14,7 @@ RSpec.describe Category, type: :model do
 
     context 'when using active_ones scope' do
       it 'shows only the active categories' do
-        expect(described_class.active_ones.size).to eq(6)
+        expect(described_class.active_ones.size).to eq(4)
       end
     end
 

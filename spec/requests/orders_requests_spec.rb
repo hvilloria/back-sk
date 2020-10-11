@@ -57,27 +57,31 @@ RSpec.describe 'Order requests' do
     end
 
     context 'working with promotions' do
-      context 'when there is a percentage promo on current day' do
-        let(:current_day) { Time.parse('06/10/2020') }
-        let(:wrap_shrimp) { Variant.last }
+      let(:current_day) { Time.parse('06/10/2020') }
+      let(:wrap_shrimp) { Variant.last }
 
+      before do
+        travel_to current_day
+      end
+
+      context 'when there is a percentage promo on current day' do
         let(:params) do
           {
             order: attributes_for(:order).merge(
-              order_details_attributes: [build(:order_detail, variant: wrap_shrimp).as_json]
+              order_details_attributes: [ build(:order_detail, price: 160, variant: wrap_shrimp).as_json ]
             )
           }
         end
 
         before do
-          travel_to current_day
           create(
             :promotion,
-            frequency: ['tuesday'],
+            frequency: ['Tuesday'],
             value: 50,
             from_date: Time.zone.now,
             to_date: Time.zone.now
            )
+           Promotion.last.variants << wrap_shrimp
         end
 
         it 'creates a new order' do
@@ -90,12 +94,52 @@ RSpec.describe 'Order requests' do
 
         it 'sets the price as the promotion percetage defines' do
           subject
-          expect(OrderDetail.last.price).to eq(160)
+          expect(OrderDetail.last.price).to eq(80)
         end
 
         it 'sums all the order details price to set it as total for order' do
           subject
-          expect(Order.last.total).to eq(160)
+          expect(Order.last.total).to eq(80)
+        end
+      end
+
+       context 'when there is a price promo on current day' do
+        let(:params) do
+          {
+            order: attributes_for(:order).merge(
+              order_details_attributes: [ build(:order_detail, price: 160, variant: wrap_shrimp).as_json ]
+            )
+          }
+        end
+
+        before do
+          create(
+            :promotion,
+            frequency: ['Tuesday'],
+            value: 100,
+            kind: :price,
+            from_date: Time.zone.now,
+            to_date: Time.zone.now
+           )
+          Promotion.last.variants << wrap_shrimp
+        end
+
+        it 'creates a new order' do
+          expect { subject }.to change { Order.count }.from(0).to(1)
+        end
+
+        it 'creates a new order detail' do
+          expect { subject }.to change { OrderDetail.count }.from(0).to(1)
+        end
+
+        it 'sets the price as the promotion percetage defines' do
+          subject
+          expect(OrderDetail.last.price).to eq(100)
+        end
+
+        it 'sums all the order details price to set it as total for order' do
+          subject
+          expect(Order.last.total).to eq(100)
         end
       end
     end

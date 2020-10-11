@@ -7,7 +7,8 @@ module Api
     end
 
     def create
-      order = Order.new(order_params)
+      result = ApplyPromotions.call(order: Order.new(order_params))
+      order = result.order
       shipping_cost = ShippingFromDistanceRetriever.new.call(params[:distance], order)
       order.shipping_cost = shipping_cost
       order.save

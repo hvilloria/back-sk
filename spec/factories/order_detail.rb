@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :order_detail do
-    variant
+    association :variant
     price { variant.price }
+    variant_id { variant_id }
   end
 end

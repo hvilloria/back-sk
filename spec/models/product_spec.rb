@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
 
     context 'when using active_ones scope' do
       it 'shows only the active products' do
-        expect(described_class.active_ones.size).to eq(8)
+        expect(described_class.active_ones.size).to eq(4)
       end
     end
 

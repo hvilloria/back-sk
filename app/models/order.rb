@@ -31,10 +31,14 @@ class Order < ApplicationRecord
   end
 
   before_create :sum_shipping, if: proc { |order| !order.shipping_cost.zero? }
-  before_create :set_tracking_id
+  before_create :set_tracking_id, :calculate_total
 
   def set_tracking_id
     self.tracking_id = TrackingIdGenerator.new.start
+  end
+
+  def calculate_total
+    self.total = order_details.map(&:price).reduce(&:+)
   end
 
   def sum_shipping
