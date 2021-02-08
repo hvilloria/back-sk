@@ -17,7 +17,7 @@ RSpec.describe Order, type: :model do
   context 'when using scopes' do
     before do
       create_list(:order, 5)
-      Order.last.update(created_at: Time.zone.now - 2.day)
+      Order.last.update!(created_at: Time.zone.now - 2.day, total: 4.0)
     end
 
     context 'when using today_ones scope' do

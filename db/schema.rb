@@ -63,6 +63,22 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
     t.index ["variant_id", "order_id"], name: "index_orders_variants_on_variant_id_and_order_id"
   end
 
+  create_table "p_groups", force: :cascade do |t|
+    t.bigint "promotion_id"
+    t.bigint "variant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["promotion_id"], name: "index_p_groups_on_promotion_id"
+    t.index ["variant_id"], name: "index_p_groups_on_variant_id"
+  end
+
+  create_table "p_groups_variants", id: false, force: :cascade do |t|
+    t.bigint "p_group_id", null: false
+    t.bigint "variant_id", null: false
+    t.index ["p_group_id", "variant_id"], name: "index_p_groups_variants_on_p_group_id_and_variant_id"
+    t.index ["variant_id", "p_group_id"], name: "index_p_groups_variants_on_variant_id_and_p_group_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.string "status", default: "active", null: false
@@ -70,6 +86,17 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.string "status", default: "inactive", null: false
+    t.datetime "from_date", default: "2020-09-29 21:00:00", null: false
+    t.datetime "to_date", default: "2020-12-31 23:50:00", null: false
+    t.string "frequency", null: false, array: true
+    t.string "kind", default: "price", null: false
+    t.float "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shippings", force: :cascade do |t|
@@ -118,6 +145,8 @@ ActiveRecord::Schema.define(version: 2020_06_20_145904) do
   add_foreign_key "discounts", "products"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "variants"
+  add_foreign_key "p_groups", "promotions"
+  add_foreign_key "p_groups", "variants"
   add_foreign_key "products", "categories"
   add_foreign_key "variants", "products"
 end

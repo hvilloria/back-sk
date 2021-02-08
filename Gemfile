@@ -12,6 +12,7 @@ gem 'devise_token_auth'
 gem 'rack', '>= 2.2.3'
 gem 'rack-cors', '~> 1.0', '>= 1.0.3'
 gem 'data_migrate', '~> 6.3'
+gem "interactor", "~> 3.0"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

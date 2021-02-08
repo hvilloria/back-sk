@@ -14,8 +14,4 @@ class OrderDetail < ApplicationRecord
   belongs_to :variant
 
   validates :price, presence: true
-
-  before_create do
-    self.price = variant.price
-  end
 end

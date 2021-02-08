@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe Api::ProductsController, type: :controller do
+RSpec.describe 'Products requests' do
   include_context 'logged_user'
+
   describe 'PATCH #update' do
     let(:category) { create(:category) }
     let(:product) { create(:product, category: category) }
+
     before do
-      patch :update, params: { id: product.id, product: request_params }
+      patch "/api/products/#{product.id}", params: { product: request_params }, headers: @tokens
       product.reload
     end
 
@@ -55,9 +57,10 @@ RSpec.describe Api::ProductsController, type: :controller do
 
     context 'with an invalid product id' do
       before do
-        patch :update, params: { id: 5, product: request_params }
+        patch "/api/products/#{50}", params: { product: request_params }, headers: @tokens
         product.reload
       end
+
       let(:request_params) { { name: 'new name' } }
 
       it 'responds with not found' do
@@ -87,7 +90,7 @@ RSpec.describe Api::ProductsController, type: :controller do
         }
       end
 
-      before { post :create, params: request_params_without_category_id }
+      before { post "/api/products", params: request_params_without_category_id, headers: @tokens }
 
       it 'returns a bad request status' do
         expect(response).to have_http_status(:bad_request)
@@ -117,7 +120,7 @@ RSpec.describe Api::ProductsController, type: :controller do
         }
       end
 
-      before { post :create, params: all_params_present }
+      before { post '/api/products', params: all_params_present, headers: @tokens }
 
       it 'responds with status created' do
         expect(response).to have_http_status(:created)

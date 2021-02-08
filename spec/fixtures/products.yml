@@ -1,0 +1,24 @@
+hot_shrimp_roll:
+  id: 3
+  name: 'Hot Shrimp Roll'
+  status: 'active'
+  category_id: 1
+
+salmon_shibo_roll:
+  id: 4
+  name: 'Salmon Shibo Roll'
+  status: 'active'
+  category_id: 1
+
+tango_roll:
+  id: 5
+  name: 'Tango roll'
+  status: 'active'
+  category_id: 1
+
+wrap:
+  id: 6
+  name: 'Wrap'
+  status: 'active'
+  category_id: 2
+

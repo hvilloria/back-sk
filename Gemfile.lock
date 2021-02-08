@@ -89,6 +89,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    interactor (3.1.2)
     jaro_winkler (1.5.3)
     jsonapi-renderer (0.2.2)
     listen (3.1.5)
@@ -221,6 +222,7 @@ DEPENDENCIES
   devise_token_auth
   factory_bot_rails (~> 5.0, >= 5.0.2)
   faker (~> 2.1, >= 2.1.2)
+  interactor (~> 3.0)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (>= 3.12.4)

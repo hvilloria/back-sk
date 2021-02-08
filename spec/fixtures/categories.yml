@@ -1,0 +1,9 @@
+roll_individuales:
+  id: 1
+  name: 'Rolls Individuales'
+  status: 'active'
+
+salads_wraps:
+  id: 2
+  name: 'Ensaladas &  Wraps'
+  status: 'active'
